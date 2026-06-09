@@ -43,14 +43,16 @@ try {
                 $response.ContentLength64 = $bytes.Length
                 $response.OutputStream.Write($bytes, 0, $bytes.Length)
                 Write-Host " - 200 OK" -ForegroundColor Green
-            } catch {
+            }
+            catch {
                 $response.StatusCode = 500
                 $bytes = [System.Text.Encoding]::UTF8.GetBytes("500 Internal Server Error: $_")
                 $response.ContentLength64 = $bytes.Length
                 $response.OutputStream.Write($bytes, 0, $bytes.Length)
                 Write-Host " - 500 Error: $_" -ForegroundColor Red
             }
-        } else {
+        }
+        else {
             $response.StatusCode = 404
             $bytes = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found")
             $response.ContentLength64 = $bytes.Length
@@ -59,8 +61,10 @@ try {
         }
         $response.Close()
     }
-} catch {
+}
+catch {
     Write-Host "Error starting server: $_" -ForegroundColor Red
-} finally {
+}
+finally {
     $listener.Close()
 }

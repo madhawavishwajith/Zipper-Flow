@@ -155,7 +155,7 @@ const Views = {
             <div class="zipper-animation-box">
               <div class="zipper-line">
                 <div class="zipper-teeth"></div>
-                <div class="zipper-slider-mock"></div>
+                <img src="zipper-slider.svg" class="zipper-slider-mock" alt="Zipper Slider">
               </div>
               <div style="margin-top:20px; font-weight:600; font-size:0.85rem; letter-spacing:1px; color:var(--text-muted);">ZIPPERFLOW WORKSHOP</div>
             </div>
@@ -1250,6 +1250,30 @@ function navigateTo(target) {
       btn.classList.remove('active');
     }
   });
+
+  // Dynamically update mobile top-bar header context
+  const mobileTitle = document.getElementById('mobile-page-title');
+  const mobileLogoSvg = document.getElementById('mobile-logo-svg');
+  const portalBtn = document.getElementById('portal-access-btn');
+
+  if (mobileTitle) {
+    const pageTitles = {
+      landing: 'ZipperFlow',
+      dashboard: 'Dashboard',
+      inventory: 'Inventory',
+      accounting: 'Accounting',
+      workshop: 'Workshop Portal'
+    };
+    mobileTitle.innerText = pageTitles[target] || (target.charAt(0).toUpperCase() + target.slice(1));
+    
+    if (target === 'landing') {
+      if (mobileLogoSvg) mobileLogoSvg.classList.remove('hidden');
+      if (portalBtn) portalBtn.classList.remove('hidden');
+    } else {
+      if (mobileLogoSvg) mobileLogoSvg.classList.add('hidden');
+      if (portalBtn) portalBtn.classList.add('hidden');
+    }
+  }
 
   // Close sidebar on mobile after navigating
   document.getElementById('sidebar').classList.remove('menu-open');
